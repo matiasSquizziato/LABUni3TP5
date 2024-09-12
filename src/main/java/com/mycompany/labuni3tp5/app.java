@@ -243,26 +243,32 @@ public class app extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
-        try {
-        // Buscar por número de teléfono
-        int valTel = Integer.parseInt(txTelClient.getText());
-        String resultado = buscarTel(valTel);
-        mostrarMensaje("Cliente encontrado: " + resultado, "Resultado de la búsqueda");
-
+     try {
+        String textoTel = txTelClient.getText();
+        String textoApell = txApellClient.getText();
         
+        // Buscar por número de teléfono
+        if (!textoTel.isEmpty()) {
+            //hago el cast
+            int valTel = Integer.parseInt(textoTel);
+            JOptionPane.showMessageDialog(null, buscarTel(valTel));
+            
         // Buscar por apellido
-        String valApell = txApellClient.getText();
-        Set<Long> numeros = obtenerTelefonosPorApellido(valApell);
-        mostrarMensaje("Números encontrados para el apellido " + valApell + ": " + numeros, "Resultado de la búsqueda");
+        } else if (!textoApell.isEmpty()) {
+            Set<Long> numeros = obtenerTelefonosPorApellido(textoApell);
+            System.out.println("apellido para buscar: " + textoApell);
+            JOptionPane.showMessageDialog(null, "Números encontrados para el apellido " + textoApell + ": " + numeros, "Resultado de la búsqueda", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono o un apellido para buscar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     } catch (NumberFormatException ex) {
-        mostrarMensaje("Por favor, ingrese un número de teléfono válido.", "Error");
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono válido.", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (Exception ex) {
-        mostrarMensaje("Ocurrió un error: " + ex.getMessage(), "Error");
+        JOptionPane.showMessageDialog(null, "Ocurrió un error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
 private void mostrarMensaje(String mensaje, String titulo) {
-    JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_btBuscarActionPerformed
 
   

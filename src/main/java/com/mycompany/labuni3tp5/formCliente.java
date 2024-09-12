@@ -120,7 +120,7 @@ public class formCliente{
     for (Map.Entry<Integer, formCliente> entry : contactos.entrySet()) {
         if (entry.getKey().equals(telefono)) {
             System.out.println("Cliente encontado: " + entry.getKey());
-            return contactos.toString(); 
+           return contactos.toString(); 
             
         }else {
             System.out.println("Contacto no encontrado");
@@ -132,15 +132,16 @@ public class formCliente{
   
    
     public static Set<Long> obtenerTelefonosPorApellido(String apellido) {
-    Set<Long> telefonos = new HashSet<>();
+   Set<Long> telefonos = new HashSet<>();
 
     for (Map.Entry<Integer, formCliente> entry : contactos.entrySet()) {
-        System.out.println("");
-        Integer key = entry.getKey(); // Almacenar la clave en una variable para mejor legibilidad
-        if (key != null) {
-            telefonos.add((long) key); // Cast explícito y más conciso
-                    System.out.println("numero de telefono: " + entry.getKey());
-
+        Integer telefono = entry.getKey(); // Obtener el número de teléfono
+        formCliente cliente = entry.getValue(); // Obtener el objeto cliente
+        
+        if (telefono != null && cliente != null) {
+            if (cliente.getApellCliente().equalsIgnoreCase(apellido)) {
+                telefonos.add((long) telefono); // Agregar al conjunto si el apellido coincide
+            }
         }
     }
 
