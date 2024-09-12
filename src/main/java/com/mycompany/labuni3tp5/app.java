@@ -4,7 +4,11 @@
  */
 package com.mycompany.labuni3tp5;
 
+
+import static com.mycompany.labuni3tp5.formCliente.buscarTel;
 import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -42,7 +46,7 @@ public class app extends javax.swing.JFrame {
         txCiudadClient = new javax.swing.JTextField();
         txTelClient = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        btBuscar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btGuardar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -50,6 +54,7 @@ public class app extends javax.swing.JFrame {
         lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(219, 219, 251));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Formulario de contacto");
@@ -66,7 +71,12 @@ public class app extends javax.swing.JFrame {
 
         jLabel7.setText("TELEFONO:");
 
-        jButton1.setText("jButton1");
+        btBuscar.setText("Buscar");
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Nuevo");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +96,8 @@ public class app extends javax.swing.JFrame {
 
         jButton5.setText("jButton5");
 
-        lblMensaje.setForeground(new java.awt.Color(153, 255, 153));
+        lblMensaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblMensaje.setForeground(new java.awt.Color(59, 154, 100));
         lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -94,47 +105,47 @@ public class app extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(97, 97, 97)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(125, 125, 125)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7))
+                            .addGap(72, 72, 72)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txDniClient)
+                                .addComponent(txNameClient)
+                                .addComponent(txApellClient)
+                                .addComponent(txAddsClient)
+                                .addComponent(txCiudadClient)
+                                .addComponent(txTelClient, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                            .addGap(76, 76, 76)
+                            .addComponent(btBuscar))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(72, 72, 72)
+                            .addComponent(jButton2)
+                            .addGap(50, 50, 50)
+                            .addComponent(btGuardar)
+                            .addGap(71, 71, 71)
+                            .addComponent(jButton4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                            .addComponent(jButton5)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
+                        .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(72, 72, 72)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txDniClient)
-                            .addComponent(txNameClient)
-                            .addComponent(txApellClient)
-                            .addComponent(txAddsClient)
-                            .addComponent(txCiudadClient)
-                            .addComponent(txTelClient, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jButton2)
-                        .addGap(50, 50, 50)
-                        .addComponent(btGuardar)
-                        .addGap(71, 71, 71)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addComponent(jButton5)))
-                .addGap(75, 75, 75))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(jLabel1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +156,7 @@ public class app extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txDniClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btBuscar))
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -174,9 +185,9 @@ public class app extends javax.swing.JFrame {
                     .addComponent(btGuardar)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addGap(18, 18, 18)
+                .addGap(74, 74, 74)
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,11 +206,12 @@ public class app extends javax.swing.JFrame {
         formCliente nCliente = new formCliente(valDni, valName, valApell, valCiudad, valAdds, valTel);
         
         //Agrego al cliente
-        nCliente.agregarCliente(nCliente);
+        nCliente.agregarCliente(nCliente.getTelCliente());
         
         //Mando un mensaje por un label
-        lblMensaje.setText("se guardo el cliente: " + valName);
+        lblMensaje.setText("se guardo el cliente: " + nCliente);
         
+       
         
         //Limpio los campos despues de guardar
         txDniClient.setText("");
@@ -214,14 +226,31 @@ public class app extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        JOptionPane.showMessageDialog(null, " ¿Desea cargar un nuevo cliente? ");
-        JOptionPane.showConfirmDialog(, lblMensaje)
+        JOptionPane.showMessageDialog(null, " Crear nuevo cliente ");
+        lblMensaje.setText(" Creando un nuevo cliente... ");
+
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+
+    int valTel = Integer.parseInt(txTelClient.getText());
+
+       // buscarTel(valTel);
+
+        JOptionPane.showMessageDialog(null, "Cliente encontrado: " + buscarTel(valTel));
+
+    }//GEN-LAST:event_btBuscarActionPerformed
+
+  
+    
+    
     /**
      * @param args the command line arguments
      */
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -255,8 +284,8 @@ public class app extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBuscar;
     private javax.swing.JButton btGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

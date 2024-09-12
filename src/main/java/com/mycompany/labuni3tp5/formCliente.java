@@ -1,6 +1,9 @@
 
 package com.mycompany.labuni3tp5;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
 
@@ -8,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author matiSqui
  */
-public class formCliente implements Comparable<formCliente>{
+public class formCliente{
     
     
     private int dniCliente;
@@ -18,7 +21,11 @@ public class formCliente implements Comparable<formCliente>{
     private String ciudadCliente;
     private int telCliente;
     
-    private TreeSet<formCliente> listClientes = new TreeSet<>();
+//    private TreeSet<formCliente> listClientes = new TreeSet<>();
+    private static Map<Integer, formCliente> contactos = new HashMap<>();
+
+
+
 
     
 
@@ -81,31 +88,49 @@ public class formCliente implements Comparable<formCliente>{
     }
 
     @Override
-    public int compareTo(formCliente other) {
-    return Integer.compare(this.dniCliente, other.dniCliente);
+    public String toString() {
+        return "DNI" + dniCliente + "Nombre: " + nameCliente + "Apellido: " + apellCliente + "Direccion: " + addsCliente + "Ciudad" + ciudadCliente + "TEL:" + telCliente + '}';
     }
+
     
     
     
-    public void agregarCliente(formCliente nCliente){
+   
+    public void agregarCliente(int telefono) {
         
-        if (listClientes.add(nCliente) == true) {
-            
-            JOptionPane.showMessageDialog(null,"Cliente: " + nCliente.getNameCliente() + " cargado correctamente");
-            
-        } else {
-            
-            JOptionPane.showMessageDialog(null, "Cliente: " + nCliente.getNameCliente() + " ya esta cargado");
-            
+        if (contactos.containsKey(telefono)) {
+            JOptionPane.showMessageDialog(null, "El número de teléfono ya existe.");
+            return;
         }
-         
+
+      
+        contactos.put(telefono, this);
+        JOptionPane.showMessageDialog(null, "Contacto agregado correctamente.");
+        System.out.println("Cliente:" + contactos.toString());
+    }
+
+  
+    public static formCliente obtenerContacto(int telefono) {
+        return contactos.get(telefono);
     }
     
+   public static String buscarTel(int telefono) {
+    for (Map.Entry<Integer, formCliente> entry : contactos.entrySet()) {
+        if (entry.getKey().equals(telefono)) {
+            System.out.println("Cliente encontado: " + entry.getKey());
+            return contactos.toString(); 
+            
+        }else {
+            System.out.println("Contacto no encontrado");
+    }  
+            
+            }
+
     
-    public int getSizeList(){
-        
-    return listClientes.size();
-        
-    }
+    
+        return null;
+}
+   
+
     
 }
