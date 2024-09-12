@@ -6,6 +6,8 @@ package com.mycompany.labuni3tp5;
 
 
 import static com.mycompany.labuni3tp5.formCliente.buscarTel;
+import static com.mycompany.labuni3tp5.formCliente.obtenerTelefonosPorApellido;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 
@@ -226,6 +228,13 @@ public class app extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
+        txDniClient.setText("");
+        txNameClient.setText("");
+        txApellClient.setText("");
+        txCiudadClient.setText("");
+        txAddsClient.setText("");
+        txTelClient.setText("");
+        
         JOptionPane.showMessageDialog(null, " Crear nuevo cliente ");
         lblMensaje.setText(" Creando un nuevo cliente... ");
 
@@ -234,12 +243,26 @@ public class app extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
-    int valTel = Integer.parseInt(txTelClient.getText());
+        try {
+        // Buscar por número de teléfono
+        int valTel = Integer.parseInt(txTelClient.getText());
+        String resultado = buscarTel(valTel);
+        mostrarMensaje("Cliente encontrado: " + resultado, "Resultado de la búsqueda");
 
-       // buscarTel(valTel);
+        
+        // Buscar por apellido
+        String valApell = txApellClient.getText();
+        Set<Long> numeros = obtenerTelefonosPorApellido(valApell);
+        mostrarMensaje("Números encontrados para el apellido " + valApell + ": " + numeros, "Resultado de la búsqueda");
+    } catch (NumberFormatException ex) {
+        mostrarMensaje("Por favor, ingrese un número de teléfono válido.", "Error");
+    } catch (Exception ex) {
+        mostrarMensaje("Ocurrió un error: " + ex.getMessage(), "Error");
+    }
+}
 
-        JOptionPane.showMessageDialog(null, "Cliente encontrado: " + buscarTel(valTel));
-
+private void mostrarMensaje(String mensaje, String titulo) {
+    JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_btBuscarActionPerformed
 
   

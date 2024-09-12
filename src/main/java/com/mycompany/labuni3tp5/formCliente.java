@@ -2,8 +2,10 @@
 package com.mycompany.labuni3tp5;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 import javax.swing.JOptionPane;
 
@@ -89,7 +91,7 @@ public class formCliente{
 
     @Override
     public String toString() {
-        return "DNI" + dniCliente + "Nombre: " + nameCliente + "Apellido: " + apellCliente + "Direccion: " + addsCliente + "Ciudad" + ciudadCliente + "TEL:" + telCliente + '}';
+        return "DNI: " + dniCliente + " Nombre: " + nameCliente + "Apellido: " + apellCliente + "Direccion: " + addsCliente + "Ciudad" + ciudadCliente + "TEL:" + telCliente + '}';
     }
 
     
@@ -125,12 +127,30 @@ public class formCliente{
     }  
             
             }
-
-    
-    
         return null;
 }
+  
    
+    public static Set<Long> obtenerTelefonosPorApellido(String apellido) {
+    Set<Long> telefonos = new HashSet<>();
 
-    
+    for (Map.Entry<Integer, formCliente> entry : contactos.entrySet()) {
+        System.out.println("");
+        Integer key = entry.getKey(); // Almacenar la clave en una variable para mejor legibilidad
+        if (key != null) {
+            telefonos.add((long) key); // Cast explícito y más conciso
+                    System.out.println("numero de telefono: " + entry.getKey());
+
+        }
+    }
+
+    return telefonos;
 }
+   
+   
+   }
+
+  
+      
+
+
