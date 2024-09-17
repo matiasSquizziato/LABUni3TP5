@@ -5,8 +5,11 @@
 package com.mycompany.labuni3tp5;
 
 
-import static com.mycompany.labuni3tp5.formCliente.buscarTel;
-import static com.mycompany.labuni3tp5.formCliente.obtenerTelefonosPorApellido;
+import static com.mycompany.labuni3tp5.FormCliente.buscarCiudad;
+import static com.mycompany.labuni3tp5.FormCliente.buscarEliminar;
+import static com.mycompany.labuni3tp5.FormCliente.buscarTel;
+import static com.mycompany.labuni3tp5.FormCliente.obtenerTelefonosPorApellido;
+import java.util.ArrayList;
 import java.util.Set;
 import javax.swing.JOptionPane;
 
@@ -16,13 +19,14 @@ import javax.swing.JOptionPane;
  *
  * @author matiSqui
  */
-public class app extends javax.swing.JFrame {
+public class App extends javax.swing.JFrame {
 
     /**
      * Creates new form app
      */
-    public app() {
+    public App() {
         initComponents();
+        lblMensaje.setText("Bienvenido!");
     }
 
     /**
@@ -51,8 +55,8 @@ public class app extends javax.swing.JFrame {
         btBuscar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btGuardar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btEliminar = new javax.swing.JButton();
+        btSalir = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,9 +98,19 @@ public class app extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("jButton4");
+        btEliminar.setText("Eliminar");
+        btEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton5");
+        btSalir.setText("Salir");
+        btSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalirActionPerformed(evt);
+            }
+        });
 
         lblMensaje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(59, 154, 100));
@@ -134,9 +148,9 @@ public class app extends javax.swing.JFrame {
                             .addGap(50, 50, 50)
                             .addComponent(btGuardar)
                             .addGap(71, 71, 71)
-                            .addComponent(jButton4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
-                            .addComponent(jButton5)))
+                            .addComponent(btEliminar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                            .addComponent(btSalir)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,8 +199,8 @@ public class app extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btGuardar)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btEliminar)
+                    .addComponent(btSalir))
                 .addGap(74, 74, 74)
                 .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(88, Short.MAX_VALUE))
@@ -202,18 +216,17 @@ public class app extends javax.swing.JFrame {
         String valApell = txApellClient.getText(); 
         String valCiudad = txCiudadClient.getText();
         String valAdds = txAddsClient.getText();
-        int valTel = Integer.parseInt(txTelClient.getText());
+        Long valTel = Long.parseLong(txTelClient.getText());
 
 
-        formCliente nCliente = new formCliente(valDni, valName, valApell, valCiudad, valAdds, valTel);
+        FormCliente nCliente = new FormCliente(valDni, valName, valApell, valCiudad, valAdds, valTel);
         
         //Agrego al cliente
-        nCliente.agregarCliente(nCliente.getTelCliente());
+        nCliente.agregarCliente((int) nCliente.getTelCliente().longValue());
         
         //Mando un mensaje por un label
         lblMensaje.setText("se guardo el cliente: " + nCliente);
-        
-       
+    
         
         //Limpio los campos despues de guardar
         txDniClient.setText("");
@@ -240,36 +253,62 @@ public class app extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    //Desde el mismo boton "buscar" implemento todos los metodos
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
-     try {
+   try {
+       //Paso los valores a variables locales
         String textoTel = txTelClient.getText();
         String textoApell = txApellClient.getText();
-        
-        // Buscar por número de teléfono
+        String textoCiudad = txCiudadClient.getText();
+
+        // Busco por numero de telefono
         if (!textoTel.isEmpty()) {
-            //hago el cast
             int valTel = Integer.parseInt(textoTel);
             JOptionPane.showMessageDialog(null, buscarTel(valTel));
+            lblMensaje.setText("Buscando por número de teléfono...");
             
-        // Buscar por apellido
+            
+        // Busco por apellido
         } else if (!textoApell.isEmpty()) {
             Set<Long> numeros = obtenerTelefonosPorApellido(textoApell);
-            System.out.println("apellido para buscar: " + textoApell);
-            JOptionPane.showMessageDialog(null, "Números encontrados para el apellido " + textoApell + ": " + numeros, "Resultado de la búsqueda", JOptionPane.INFORMATION_MESSAGE);
+            lblMensaje.setText("Buscando por apellido...");
+            JOptionPane.showMessageDialog(null, "Números encontrados para el apellido " + textoApell + ": " + numeros);
+            
+            
+        // Busco por ciudad
+        } else if (!textoCiudad.isEmpty()) {
+            ArrayList<Long> numeros = buscarCiudad(textoCiudad);
+            lblMensaje.setText("Buscando por ciudad...");
+            JOptionPane.showMessageDialog(null, "Números encontrados para la ciudad " + textoCiudad + ": " + numeros);
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono o un apellido para buscar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un criterio de búsqueda (teléfono, apellido o ciudad).");
         }
+        
+        
     } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "Ocurrió un error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono válido.");
     }
 }
 
 private void mostrarMensaje(String mensaje, String titulo) {
     }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
+
+        Long valTel = Long.parseLong(txTelClient.getText());
+
+        buscarEliminar(valTel);
+        lblMensaje.setText("Eliminando cliente...");
+        
+    }//GEN-LAST:event_btEliminarActionPerformed
+
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+
+            dispose();
+            lblMensaje.setText("Saliendo...");
+      
+    }//GEN-LAST:event_btSalirActionPerformed
 
   
     
@@ -294,30 +333,31 @@ private void mostrarMensaje(String mensaje, String titulo) {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(app.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(app.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(app.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(app.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new app().setVisible(true);
+                new App().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btEliminar;
     private javax.swing.JButton btGuardar;
+    private javax.swing.JButton btSalir;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
