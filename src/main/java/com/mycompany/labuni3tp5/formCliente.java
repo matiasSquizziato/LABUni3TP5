@@ -114,20 +114,21 @@ public class FormCliente{
         return contactos.get(telefono);
     }
     
+    
     //buscamos por telefono y retorna el cliente
-   public static String buscarTel(int telefono) {
+  public static FormCliente buscarTel(int telefono) {
     for (Map.Entry<Integer, FormCliente> entry : contactos.entrySet()) {
         if (entry.getKey().equals(telefono)) {
-            System.out.println("Cliente encontado: " + entry.getKey());
-           return contactos.toString(); 
-            
-        }else {
-            System.out.println("Contacto no encontrado");
-    }  
-            
-            }
-        return null;
+            // Encontramos al cliente, retornamos el objeto FormCliente directamente
+            return entry.getValue();
+        }
+    }
+
+    // Si llegamos aquí, el cliente no fue encontrado
+    System.out.println("Contacto no encontrado");
+    return null;
 }
+   
   
    //buscamos por apellido y retorna una lista de numeros asociados a un apellido
     public static Set<Long> obtenerTelefonosPorApellido(String apellido) {
